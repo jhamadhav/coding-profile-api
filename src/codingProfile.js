@@ -69,7 +69,7 @@ const codechefProfile = async (username) => {
 
         let root = parse(data)
         data = root.querySelector('.rating-number').innerText
-        console.log(data);
+        // console.log(data);
 
         // data = data["result"][0]
         // console.log(data);

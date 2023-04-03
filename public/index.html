@@ -4,11 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Express project</title>
+    <title>Coding profile APIs</title>
 </head>
 
 <body>
-    <h1>Hello world, This is a model express project boilerplate</h1>
+    <h1>Get rating of different coding profiles ...!</h1>
+
+    <h2>Codechef: </h2>
+    <input type="text" id="cc-inp" value="jhamadhav28">
+    <button id="cc-btn">get</button>
+    <p id="cc-out">your rating: </p>
+    <br>
+    <br>
+
+    <h2>Codeforces: </h2>
+    <input type="text" id="cf-inp" value="jhamadhav">
+    <button id="cf-btn">get</button>
+    <p id="cf-out">your rating: </p>
+    <br>
+    <br>
+
+    <h2>Leetcode: </h2>
+    <input type="text" id="lc-inp" value="jhamadhav">
+    <button id="lc-btn">get</button>
+    <p id="lc-out">your rating: </p>
+    <br>
+    <br>
+
+    <script>
+        const postData = async (url = "", data = {}) => {
+            const response = await fetch(url, {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                redirect: "follow",
+                referrerPolicy: "no-referrer",
+                body: JSON.stringify(data),
+            });
+            return response.json();
+        }
+
+        document.getElementById("cc-btn").onclick = async () => {
+            let username = document.getElementById("cc-inp").value
+            let data = await postData("/codechef", { username })
+            console.log(data);
+            document.getElementById("cc-out").innerText = data["data"]
+        }
+
+        document.getElementById("cf-btn").onclick = async () => {
+            let username = document.getElementById("cf-inp").value
+            let data = await postData("/codeforces", { username })
+            console.log(data["data"]);
+            document.getElementById("cf-out").innerText = data["data"]["maxRating"]
+        }
+
+        document.getElementById("lc-btn").onclick = async () => {
+            let username = document.getElementById("lc-inp").value
+            let data = await postData("/leetcode", { username })
+            console.log(data["data"]["userContestRanking"]);
+            document.getElementById("lc-out").innerText = data["data"]["userContestRanking"]["rating"]
+        }
+    </script>
 </body>
 
 </html>
