@@ -32,6 +32,7 @@ app.post("/codeforces", async (req, res) => {
     let cf = await codeforcesProfile(username)
     res.send(JSON.stringify({ data: cf }))
 })
+
 app.post("/leetcode", async (req, res) => {
     data = req.body
     let username = null
@@ -44,6 +45,20 @@ app.post("/leetcode", async (req, res) => {
     }
     let lc = await leetcodeProfile(username)
     res.send(JSON.stringify({ data: lc }))
+})
+
+app.post("/codechef", async (req, res) => {
+    data = req.body
+    let username = null
+    try {
+        username = data["username"]
+    } catch (e) {
+        console.log(e)
+        res.send(JSON.stringify({ data: null }))
+        return
+    }
+    let cc = await codechefProfile(username)
+    res.send(JSON.stringify({ data: cc }))
 })
 
 // listen for requests :)
